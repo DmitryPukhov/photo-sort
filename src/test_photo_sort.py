@@ -34,36 +34,36 @@ class TestPhotoSort(TestCase):
         ts_of_2023 = 1689064223
         proc = PhotoSort(src_arch_dir_param="", trg_dir_param="/mytarget")
         # In file path 2021, in description 2023 year.
-        actual = proc.trg_path("Photos from 1111/20210102_151344", {"photoTakenTime": {"timestamp": ts_of_2023}})
+        actual = proc.trg_path_of("Photos from 1111/20210102_151344", {"photoTakenTime": {"timestamp": ts_of_2023}})
         # 2023 in description is of higher priority than 2021 in file name
         self.assertEqual("/mytarget/2023/20210102_151344", actual)
 
     def test_trg_path_not_album(self):
         proc = PhotoSort(src_arch_dir_param="", trg_dir_param="/mytarget")
 
-        actual = proc.trg_path("Photos from 1111/20210102_151344")
+        actual = proc.trg_path_of("Photos from 1111/20210102_151344")
         self.assertEqual("/mytarget/2021/20210102_151344", actual)
 
-        actual = proc.trg_path("Photos from 1111/20210102_151344.jpg")
+        actual = proc.trg_path_of("Photos from 1111/20210102_151344.jpg")
         self.assertEqual("/mytarget/2021/20210102_151344.jpg", actual)
 
-        actual = proc.trg_path("Photos from 1111/aaaaa_20210102_151344_bbbbb.jpg")
+        actual = proc.trg_path_of("Photos from 1111/aaaaa_20210102_151344_bbbbb.jpg")
         self.assertEqual("/mytarget/2021/aaaaa_20210102_151344_bbbbb.jpg", actual)
 
-        actual = proc.trg_path("~/asdas/sdfasf/Photos from 1111/aaaaa_20210102_151344_bbbbb.jpg")
+        actual = proc.trg_path_of("~/asdas/sdfasf/Photos from 1111/aaaaa_20210102_151344_bbbbb.jpg")
         self.assertEqual("/mytarget/2021/aaaaa_20210102_151344_bbbbb.jpg", actual)
 
     def test_trg_path_album(self):
         proc = PhotoSort(src_arch_dir_param="", trg_dir_param="/mytarget")
 
-        actual = proc.trg_path("album1/20210102_151344")
+        actual = proc.trg_path_of("album1/20210102_151344")
         self.assertEqual("/mytarget/2021/album1/20210102_151344", actual)
 
-        actual = proc.trg_path("2134/album1/20210102_151344.jpg")
+        actual = proc.trg_path_of("2134/album1/20210102_151344.jpg")
         self.assertEqual("/mytarget/2021/album1/20210102_151344.jpg", actual)
 
-        actual = proc.trg_path("some parent/album1/aaaaa_20210102_151344_bbbbb.jpg")
+        actual = proc.trg_path_of("some parent/album1/aaaaa_20210102_151344_bbbbb.jpg")
         self.assertEqual("/mytarget/2021/album1/aaaaa_20210102_151344_bbbbb.jpg", actual)
 
-        actual = proc.trg_path("~/asdas/sdfasf/album1/aaaaa_20210102_151344_bbbbb.jpg")
+        actual = proc.trg_path_of("~/asdas/sdfasf/album1/aaaaa_20210102_151344_bbbbb.jpg")
         self.assertEqual("/mytarget/2021/album1/aaaaa_20210102_151344_bbbbb.jpg", actual)
